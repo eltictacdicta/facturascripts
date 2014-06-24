@@ -1,0 +1,46 @@
+{include="header"}
+
+<div class="rounded">
+    <h1>Listado de gatos:</h1>
+    <table class="list">
+        <tr>
+            <th align='left'>Número</th>
+            <th align='left'>Peso</th>
+            <th align='left'>Entrada</th>
+            <th align='right'>Fecha fin</th>
+        </tr>
+        {loop="$fsc->listar_gatos()"}
+        <tr>
+            <td>{$value['numero']}</td>
+            <td>{$value['peso']}</td>
+            <td>{$value['entrada']}</td>
+            <td align='right'>{$value['fecha_fin']}</td>
+        </tr>
+        {else}
+        <tr>
+            <td colspan="4">Sin resultados.</td>
+        </tr>
+        {/loop}
+    </table>
+</div>
+
+<div class="rounded">
+    <h1>Añadir:</h1>
+    <form action="{$fsc->url()}" method="post">
+        <div class="bloque">
+            Peso:
+            <input type="text" name="peso" size="8" value="4000"/> gramos
+        </div>
+        <div class="bloque">
+            Fecha de entrada:
+            <input class="tcal" type="text" name="entrada" value="{$fsc->today()}" size="10"/>
+        </div>
+        <div class="bloque">
+            Fecha fin:
+            <input class="tcal" type="text" name="fechafin" size="10"/>
+        </div>
+        <input class="submit" type="submit" value="guardar"/>
+    </form>
+</div>
+
+{include="footer"}

@@ -1,0 +1,37 @@
+{include="header"}
+<div class="rounded">
+    
+    <h1>Listado de SAT</h1>
+    {if condition="$fsc->query!=''"}<h1>Resultados de la busqueda "{$fsc->query}":</h1>{/if}
+    <table class="list">
+    <th >N sat</th>
+    <th align="left">Prioridad</th>
+    <th align="left">Fecha de comienzo</th>
+    <th align="left">Fecha de finalización</th>
+    <th align="left">Modelo</th>
+    <th align="left">Nombre</th>
+    <th align="left">Telefono</th>
+    <th align="left">Movil</th>
+    <th align="left">Estado</th>
+    {loop="fsc->listar_sat()"}
+    <tr>
+        <td><a href="{$fsc->url()}&id={$value['nsat']}">{$value['nsat']}</a></td>
+        <td>{$value['prioridad']}</td>
+        <td>{$value['fcomienzo']}</td>
+        <td>{$value['ffin']}</td>
+        <td>{$value['modelo']}</td>
+        <td>{$value['nombre']}</td>
+        <td>{$value['telefono1']}</td>
+        <td>{$value['telefono2']}</td>
+        <td>{$value['nombre_estado']}</td>
+    </tr>
+     {else}
+    {/loop}
+    
+   
+    
+    </table>
+    
+        
+</div>
+{include="footer"}

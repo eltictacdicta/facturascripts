@@ -1,0 +1,57 @@
+{include="header"}
+<form id="f_edita_sat" name="f_edita_sat" action="{$fsc->url()}&id={$fsc->resultado[nsat]}" method="post">
+   <div class="rounded">
+      <h1>
+         
+         <a class="link" href="index.php?page=general_cliente&cod={$fsc->resultado[codcliente]}">Cliente actual</a>:     
+         
+         <input type="text" name="nombre" value="{$fsc->resultado[nombre]}" size="40"/>
+          Telefono fijo:
+          <input type="text" name="telefono1" value="{$fsc->resultado[telefono1]}" size="9"/>
+          Telefono movil:
+          <input type="text" name="telefono2" value="{$fsc->resultado[telefono2]}" size="9"/>     
+          <select name="estado">
+              {loop="fsc->listar_estados()"}
+              <option value="{$value['id_estado']}">{$value['nombre_estado']}</option>
+              {/loop}
+          </select>
+          
+        
+         <span>
+            <input class="submit" type="submit" value="guardar" onclick="this.disabled=true;this.form.submit();"/>
+         </span>
+      </h1>
+      <div class="bloque">
+         Modelo: <input type="text" name="modelo" value="{$fsc->resultado[modelo]}" size="50"/>
+      </div>
+      <br/>
+      <div class="bloque">Prioridad:{$fsc->resultado[prioridad]}</div>
+      <div class="bloque">
+         Fecha comienzo: <input class="tcal" type="text" name="fcomienzo" value="{$fsc->resultado[fcomienzo]}" size="10"/>
+      </div>
+      <div class="bloque">
+         Fecha finalización: <input class="tcal" type="text" name="ffin" value="{$fsc->resultado[ffin]}" size="10"/>
+      </div>
+      
+      <table width="100%">
+         <tr>
+            <td>
+               Avería:<br/>
+               <textarea name="averia" cols="60">{$fsc->resultado[averia]}</textarea>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               Accesorios:<br/>
+               <textarea name="accesorios" cols="60">{$fsc->resultado[accesorios]}</textarea>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               Ovservaciones:<br/>
+               <textarea name="observaciones" cols="60">{$fsc->resultado[observaciones]}</textarea>
+            </td>
+         </tr>
+      </table>
+   </div>
+{include="footer"}

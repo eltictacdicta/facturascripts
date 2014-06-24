@@ -1,0 +1,51 @@
+{include="header"}
+<form id="f_agrega_sat" name="f_agrega_sat" action="{$fsc->url()}&opcion=nuevosat&codcliente={$fsc->resultado[codcliente]}" method="post">
+   <div class="rounded">
+      <h1>
+         
+         <a class="link" href="index.php?page=general_cliente&cod={$fsc->resultado[codcliente]}">Cliente actual</a>:     
+         
+         <input type="text" name="nombre" value="{$fsc->resultado[nombre]}" size="40"/>
+          Telefono fijo:
+          <input type="text" name="telefono1" value="{$fsc->resultado[telefono1]}" size="9"/>
+          Telefono movil:
+          <input type="text" name="telefono2" value="{$fsc->resultado[telefono2]}" size="9"/>     
+        
+         <span>
+            <input class="submit" type="submit" value="guardar" onclick="this.disabled=true;this.form.submit();"/>
+         </span>
+      </h1>
+      <div class="bloque">
+         Modelo: <input type="text" name="modelo" value="" size="50"/>
+      </div>
+      <br/>
+      <div class="bloque"></div>
+      <div class="bloque">
+         Fecha comienzo: <input class="tcal" type="text" name="fcomienzo" value="" size="10"/>
+      </div>
+      <div class="bloque">
+         Fecha finalización: <input class="tcal" type="text" name="ffin" value="" size="10"/>
+      </div>
+      
+      <table width="100%">
+         <tr>
+            <td>
+               Avería:<br/>
+               <textarea name="averia" cols="60"></textarea>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               Accesorios:<br/>
+               <textarea name="accesorios" cols="60"></textarea>
+            </td>
+         </tr>
+         <tr>
+            <td>
+               Ovservaciones:<br/>
+               <textarea name="observaciones" cols="60"></textarea>
+            </td>
+         </tr>
+      </table>
+   </div>
+{include="footer"}

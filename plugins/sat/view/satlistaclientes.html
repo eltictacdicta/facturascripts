@@ -1,0 +1,79 @@
+{include="header"}
+<script type="text/javascript">
+   function comprobar_url()
+   {
+      if(window.location.hash.substring(1) == 'nuevo')
+      {
+         fs_show_popup('popup_nuevo_cliente');
+         //document.f_nuevo_cliente.nombre.focus();
+      }
+   }
+   $(document).ready(function() {
+      //document.f_custom_search.query.focus();
+      comprobar_url();
+      window.onpopstate = function(){ 
+         comprobar_url();
+      }
+   });
+</script>
+<div class="popup" id="popup_nuevo_cliente">
+     <h1>Nuevo cliente</h1>
+   <form name="f_nuevo_cliente" action="{$fsc->url()}&opcion=nuevosat" method="post">
+      <table> 
+         <tr>
+            <td align="right">Nombre:</td>
+            <td><input type="text" name="nombre" value="" size="30" autocomplete="off"/></td>
+         </tr>
+         <tr>
+            <td align="right">Telefono:</td>
+            <td><input type="text" name="telefono1" value="" size="9" autocomplete="off"/></td>
+         </tr>
+         <tr>
+            <td align="right">Movil</td>
+            <td><input type="text" name="telefono2" value="" size="9" autocomplete="off"/></td>
+         </tr>
+         <tr>
+            <td colspan="2" align="right">
+               <input class="submit" type="submit" value="guardar" onclick="this.disabled=true;this.form.submit();"/>
+            </td>
+         </tr>
+      </table>
+   </form>
+</div>
+
+<div class="rounded">
+
+    <h1>
+        Listado de SAT
+        <div class="pull_right">
+               <form id="f_edita_sat" name="f_edita_sat" action="{$fsc->url()}&opcion=nuevosat" method="post">
+                <input type="text" name="query" value="" size="15"/><input class="submit" type="submit" value="buscar" onclick="this.disabled=true;this.form.submit();"/>
+                </form> 
+        </div>
+    </h1>
+    <form id="f_edita_sat" name="f_edita_sat" action="{$fsc->url()}&opcion=nuevosat" method="post">
+    {if condition="$fsc->query!=''"}<h1>Resultados de la busqueda "{$fsc->query}":</h1>{/if}
+    <table class="list">
+    <th align="left">Codigo de cliente</th>
+    <th align="left">Nombre</th>
+    <th align="left">Telefono</th>
+    <th align="lefet">Movil</th>
+    {loop="fsc->listar_clientes()"}
+    <tr>
+        <td><a href="{$fsc->url()}&opcion=nuevosat&codcliente={$value['codcliente']}">{$value['codcliente']}</a></td>
+        <td>{$value['nombre']}</td>
+        <td>{$value['telefono1']}</td>
+        <td>{$value['telefono2']}</td>
+    </tr>
+     {else}
+    {/loop}
+    
+   
+    
+    </table>
+    </form>
+</div>
+        
+
+
+{include="footer"}
