@@ -107,7 +107,11 @@ class sat extends fs_controller
     
     public function devuelveSat($id)
     {
-        $sql="Select clientes.codcliente,sat.nsat,sat.prioridad,sat.fcomienzo,sat.ffin,sat.modelo,clientes.nombre,clientes.telefono1,clientes.telefono2,sat.estado,sat.averia,sat.accesorios,sat.observaciones FROM sat,clientes WHERE sat.codcliente=clientes.codcliente AND sat.nsat=".$id;
+        $sql="Select clientes.codcliente,"
+                . "sat.nsat,sat.prioridad,sat.fcomienzo,sat.ffin,sat.modelo,clientes.nombre,"
+                . "clientes.telefono1,clientes.telefono2,sat.estado,sat.averia,sat.accesorios,"
+                . "sat.observaciones FROM sat,clientes,sat_estados WHERE sat.codcliente=clientes.codcliente "
+                . "AND sat.estado=sat_estados.id_estado AND sat.nsat=".$id;
         $data= $this->db->select($sql);
         if($data)
         {

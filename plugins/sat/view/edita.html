@@ -1,8 +1,8 @@
 {include="header"}
 <form id="f_edita_sat" name="f_edita_sat" action="{$fsc->url()}&id={$fsc->resultado[nsat]}" method="post">
    <div class="rounded">
-      <h1>
-         
+      
+         <h1>
          <a class="link" href="index.php?page=general_cliente&cod={$fsc->resultado[codcliente]}">Cliente actual</a>:     
          
          <input type="text" name="nombre" value="{$fsc->resultado[nombre]}" size="40"/>
@@ -12,11 +12,15 @@
           <input type="text" name="telefono2" value="{$fsc->resultado[telefono2]}" size="9"/>     
           <select name="estado">
               {loop="fsc->listar_estados()"}
+              {if="$value['id_estado'] == $fsc->resultado['estado']"}
+              <option value="{$value['id_estado']}" selected>{$value['nombre_estado']}</option>
+              {else}
               <option value="{$value['id_estado']}">{$value['nombre_estado']}</option>
+              {/if}
               {/loop}
           </select>
           
-        
+      
          <span>
             <input class="submit" type="submit" value="guardar" onclick="this.disabled=true;this.form.submit();"/>
          </span>
