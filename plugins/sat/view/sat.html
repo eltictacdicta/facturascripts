@@ -2,6 +2,27 @@
 <div class="rounded">
     
     <h1>Listado de SAT</h1>
+
+            <div class="pull_right">
+               <form id="f_edita_sat" name="f_edita_sat" action="{$fsc->url()}" method="post">
+                      <div class="bloque">
+                      Buscar - Desde: <input class="tcal" type="text" name="fcomienzo" value="" size="10"/>
+                      </div>
+                        <div class="bloque">
+                       Hasta: <input class="tcal" type="text" name="ffin" value="" size="10"/>
+                      </div>
+                      <div class="bloque">
+                       Estado
+                      <select name="estado">
+                          <option value="" selected>Todos</option>
+                        {loop="fsc->listar_estados()"}
+                        <option value="{$value['id_estado']}">{$value['nombre_estado']}</option>
+                        {/loop}
+                    </select>
+                      </div>
+                <input class="submit" type="submit" value="buscar" onclick="this.disabled=true;this.form.submit();"/>
+                </form> 
+        </div>
     {if condition="$fsc->query!=''"}<h1>Resultados de la busqueda "{$fsc->query}":</h1>{/if}
     <table class="list">
     <th >N sat</th>
