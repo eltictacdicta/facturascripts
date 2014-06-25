@@ -1,4 +1,6 @@
 <?php
+require_model('sat.php');
+require_model('sat_estado.php');
 class sat extends fs_controller
 {   
     public $resultado;
@@ -6,9 +8,24 @@ class sat extends fs_controller
     public function __construct() 
     {
         parent::__construct(__CLASS__, 'Sat', 'general', FALSE, TRUE);
+        $sat = new modelosat();
+        $sat = new sat_estado();
+        $aux = $this->existe_datos_estados();
+        if($aux == 0) {  
+            $sql = "INSERT INTO `sat_estados` (`id_estado`, `nombre_estado`) VALUES
+        (1, 'Trabajo por empezar'),
+        (2, 'Trabajo empezado'),
+        (3, 'Aceptado Pendiente de Pieza'),
+        (4, 'Aceptado pendiente empezar'),
+        (5, 'Terminado pendiente de recoger'),
+        (6, 'Terminado y recogido.');";
+        $this->db->exec($sql);
+        }
+        ;
     }
     protected function process() {
         
+
         if(isset($_GET['id']))
         {
             
@@ -16,7 +33,7 @@ class sat extends fs_controller
             $this->resultado=$this->devuelveSat($_GET['id']);
             if(isset($_POST['nombre']))
             {
-                
+                $this->new_message("Sat modificado correctamente.");
                $this->edita_sat($_GET['id']);
             }
             $this->resultado=$this->devuelveSat($_GET['id']);
@@ -181,17 +198,45 @@ class sat extends fs_controller
 
     public function listar_sat()
     {
+        $aux = "";
+        if(isset($_POST['desde'])&&isset($_POST['hasta']))
+        {
+           if(strtotime($_POST['desde'])>strtotime($_POST['hasta']))
+            {
+                echo 'ddd';
+            }  
+        }
+        $estado="todos";
+        if(isset($_POST['estado']))
+        {
+           $estado=$_POST['estado']; 
+        }
+        if($estado!="todos")
+        {
+           $aux .= " AND sat.estado =".$_POST['estado']; 
+        }
+        if($estado!=6)
+        {
+           $aux .= " AND sat.estado!=6"; 
+        }
+        else 
+        {
+           $aux .= " AND sat.estado=6"; 
+        }
+            
+        
         $sql="SELECT sat.nsat, sat.prioridad, sat_estados.nombre_estado, sat.fcomienzo, sat.ffin, sat.modelo, clientes.nombre, clientes.telefono1, clientes.telefono2, sat.estado 
             FROM sat, clientes, sat_estados
             WHERE sat.codcliente = clientes.codcliente
-            AND sat.estado = sat_estados.id_estado ";
+            AND sat.estado = sat_estados.id_estado ".$aux;
+  
         if(isset($_POST['query']))
         {
             $sql="SELECT sat.nsat, sat.prioridad, sat_estados.nombre_estado, sat.fcomienzo, sat.ffin, sat.modelo, clientes.nombre, clientes.telefono1, clientes.telefono2, sat.estado 
                     FROM sat, clientes, sat_estados
                     WHERE sat.codcliente = clientes.codcliente
                     AND sat.estado = sat_estados.id_estado "
-                    . "AND ((lower(modelo) LIKE lower('%".$_POST['query']."%')) OR (nsat LIKE '%".$_POST['query']."%') OR (lower(nombre) LIKE lower('%".$_POST['query']."%')))";
+                    . "AND ((lower(modelo) LIKE lower('%".$_POST['query']."%')) OR (nsat LIKE '%".$_POST['query']."%') OR (lower(nombre) LIKE lower('%".$_POST['query']."%')))".$aux;
         }
         $data=  $this->db->select($sql);
         if($data)
@@ -252,6 +297,17 @@ class sat extends fs_controller
             return intval($data[0]['nsat']) + 1;
         else
             return 1;
+    }
+    
+    public function existe_datos_estados()//devuelve 1 si hay algo en la tabla y 0 si no hay
+    {
+        $sql="select id_estado from sat_estados;";
+        echo $sql;
+        $data = $this->db->select($sql);
+        if($data)
+            return 1;
+        else
+            return 0;
     }
     
     public function nuevo_numero_cliente()
