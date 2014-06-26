@@ -1,0 +1,93 @@
+{include="header"}
+
+{if condition="$demo"}
+<div class="row" id="bodyMain2">
+	<section class="col-lg-12">
+		 <div class="box box-primary">
+			<div class="box-header">
+				<i class="fa fa-list-ul"></i>
+				<h3 class="box-title">Plugins</h3>
+			</div>
+			<div class="box-body no-padding">
+				<img src="view/img/fuuu_face.png" alt="fuuuuu"/>
+			</div>
+		</div>
+	</section>
+</div>
+{else}
+<div class="row" id="bodyMain2">
+	<section class="col-lg-12">
+		 <div class="box box-primary">
+			<div class="box-header">
+				<i class="fa fa-puzzle-piece"></i>
+				<h3 class="box-title">Plugins</h3>
+			</div>
+			<div class="box-body no-padding">
+				<div class="box-body">
+					<a {if condition="!$fsc->unstables"}class="btn btn-primary"{else}class="btn btn-default"{/if} href="{$fsc->url()}" >Estables</a>
+					<a {if condition="$fsc->unstables"}class="btn btn-warning"{else}class="btn btn-default"{/if} href="{$fsc->url()}&unstable=TRUE">Inestables</a>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<tr>
+							<th align="left">Nombre</th>
+							<th align="left">Descripción</th>
+							<th align="left">Acción</th>
+						</tr>
+						{loop="$fsc->plugins()"}
+						<tr>
+							<td>{$value['name']}</td>
+							<td>{$value['description']}</td>
+							<td>
+								{if condition="$fsc->unstables"}
+									{if condition="$value['enabled']"}
+										<a class="delete" href="{$fsc->url()}&unstable=TRUE&disable={$value['name']}">Desactivar</a>
+									{else}
+										<a class="button" href="{$fsc->url()}&unstable=TRUE&enable={$value['name']}">Activar</a>
+									{/if}
+								{else}
+									{if condition="$value['enabled']"}
+										<a class="delete" href="{$fsc->url()}&disable={$value['name']}">Desactivar</a>
+									{else}
+										<a class="button" href="{$fsc->url()}&enable={$value['name']}">Activar</a>
+									{/if}
+								{/if}
+							</td>
+						</tr>
+						{else}
+						<tr>
+							<td colspan="3" align="center">Ningún plugin encontrado.</td>
+						</tr>
+						{/loop}
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section class="col-lg-12">
+		 <div class="box box-primary">
+			<div class="box-header">
+				<i class="fa fa-question"></i>
+				<h3 class="box-title">¿Necesitas un plugin?</h3>
+			</div>
+			<div class="box-body no-padding">
+				<div class="box-body">
+					Pues mándame un email a <b>neorazorx@gmail.com</b> y no te olvides de hacer una donación ;-)
+					
+					<br>
+					
+					<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" align="center">
+						<input type="hidden" name="cmd" value="_s-xclick"/>
+						<input type="hidden" name="hosted_button_id" value="NXUH3XYDVPQBG"/>
+						<input type="image" src="https://www.paypalobjects.com/es_ES/ES/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal. La forma rápida y segura de pagar en Internet."/>
+						<img alt="" border="0" src="https://www.paypalobjects.com/es_ES/i/scr/pixel.gif" width="1" height="1"/>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+{/if}
+
+{include="footer"}

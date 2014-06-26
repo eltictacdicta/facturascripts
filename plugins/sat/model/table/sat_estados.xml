@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : sat_estados.xml
+    Description:
+        Estructura de la tabla sat_estados.
+-->
+<tabla>
+<columna>
+    <nombre>id_estado</nombre>
+    <tipo>int(11)</tipo>
+    <nulo>NO</nulo>
+</columna>
+<columna>
+    <nombre>nombre_estado</nombre>
+    <tipo>varchar(30)</tipo>
+    <nulo>NO</nulo>
+</columna>
+<restriccion>
+    <nombre>sat_estados_pkey</nombre>
+    <consulta>PRIMARY KEY (id_estado)</consulta>
+</restriccion>
+</tabla>

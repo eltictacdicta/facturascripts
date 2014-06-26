@@ -1,5 +1,4 @@
 <?php
-
 class modelosat extends fs_model
 {
     public $nsat;

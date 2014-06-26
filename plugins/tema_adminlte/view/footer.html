@@ -1,0 +1,90 @@
+
+			</script>
+			{if condition="$fsc->get_last_changes()"}
+			<div class="well well-sm">
+				<h1>Últimos cambios:</h1>
+				<ul class="h_bloque">
+				{loop="$fsc->get_last_changes()"}
+					<li{if condition="!$value['nuevo']"} class="verde"{/if}>
+						<a href="{$value['url']}">{$value['texto']}</a>
+					</li>
+				{/loop}
+				</ul>
+			</div>
+			{/if}
+			{if condition="$demo"}
+			<div class="box-body no-padding">
+				<table width="100%">
+					<tr>
+						<td>
+							<h1>¿Te está gustando FacturaScripts?</h1>
+							<p>Pues lo puedes usar muy fácilemnte en tu negocio. Tienes 3 opciones:</p>
+							<ul>
+								<li>Descarga FacturaScripts e instálalo en tu ordenador.</li>
+								<li>Descarga FacturaScripts y cópialo a tu hosting, como un wordpress.</li>
+								<li>
+									Si no tienes ni idea de apache, ni hostings, simplemente escríbeme un email a
+									<b>neorazorx@gmail.com</b> y yo te lo instalo en un servidor por un módico precio ;-)
+								</li>
+							</ul>
+						</td>
+						<td align="right">
+							<a href="http://www.facturascripts.com/community/download.php">
+								<img src="view/img/download.png" alt="descargar" title="descargar FacturaScripts"/>
+							</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+			{/if}
+			{if condition="$db_history"}
+			<div class="well well-sm">
+				<h1>Consultas SQL:</h1>
+				<ol>{loop="$fsc->get_db_history()"}<li>{$value}</li>{/loop}</ol>
+			</div>
+			{/if}
+		</div>
+		
+		<div class="row" id="footerMain2">
+			<section class="col-lg-12">
+				<div class="box box-solid">
+					<div class="box-body">
+						<p class="text-muted">Consultas: {$fsc->selects()} | Transacciones: {$fsc->transactions()} | Procesado en: {$fsc->duration()}</p>
+					</div><!-- /.box-body -->
+				</div><!-- /.box -->
+			</section>
+		</div><!-- ./col -->
+	
+		<!-- add new calendar event modal -->
+		<!-- jQuery 2.0.2 -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<!-- jQuery UI 1.10.3 -->
+		<script src="plugins/tema_adminlte/view/js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
+		<!-- Bootstrap -->
+		<script src="plugins/tema_adminlte/view/js/bootstrap.min.js" type="text/javascript"></script>
+		<!-- Morris.js charts -->
+		<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+		<script src="plugins/tema_adminlte/view/js/plugins/morris/morris.min.js" type="text/javascript"></script>
+		<!-- Sparkline -->
+		<script src="plugins/tema_adminlte/view/js/plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
+		<!-- jvectormap -->
+		<script src="plugins/tema_adminlte/view/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js" type="text/javascript"></script>
+		<script src="plugins/tema_adminlte/view/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
+		<!-- fullCalendar -->
+		<script src="plugins/tema_adminlte/view/js/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
+		<!-- jQuery Knob Chart -->
+		<script src="plugins/tema_adminlte/view/js/plugins/jqueryKnob/jquery.knob.js" type="text/javascript"></script>
+		<!-- daterangepicker -->
+		<script src="plugins/tema_adminlte/view/js/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+		<!-- Bootstrap WYSIHTML5 -->
+		<script src="plugins/tema_adminlte/view/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
+		<!-- iCheck -->
+		<script src="plugins/tema_adminlte/view/js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+		<!-- AdminLTE App -->
+		<script src="plugins/tema_adminlte/view/js/AdminLTE/app.js" type="text/javascript"></script>
+		<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+		<script src="plugins/tema_adminlte/view/js/AdminLTE/dashboard.js" type="text/javascript"></script>	  
+		<!-- AdminLTE for demo purposes -->
+		<script src="plugins/tema_adminlte/view/js/AdminLTE/demo.js" type="text/javascript"></script>
+	</body>
+</html>

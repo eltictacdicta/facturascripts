@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : sat.xml
+    Description:
+        Estructura de la tabla sat.
+-->
+<tabla>
+<columna><nombre>nsat</nombre>
+<tipo>int(11)</tipo>
+<nulo>NO</nulo>
+</columna>
+<columna>
+    <nombre>prioridad</nombre>
+    <tipo>int(11)</tipo>
+    <nulo>NO</nulo>
+</columna>
+<columna>
+    <nombre>fcomienzo</nombre>
+    <tipo>date</tipo>
+    <nulo>NO</nulo>
+</columna>
+<columna>
+    <nombre>ffin</nombre>
+    <tipo>date</tipo>
+    <nulo>NO</nulo>
+</columna>
+<columna>
+    <nombre>Modelo</nombre>
+    <tipo>text</tipo>
+    <nulo>NO</nulo>
+</columna>
+<columna>
+    <nombre>codcliente</nombre>
+    <tipo>varchar(6)</tipo>
+    <nulo>NO</nulo>
+</columna>
+<columna>
+    <nombre>estado</nombre>
+    <tipo>int(11)</tipo>
+    <nulo>NO</nulo>
+</columna>
+<columna>
+    <nombre>averia</nombre>
+    <tipo>text</tipo>
+    <nulo>NO</nulo>
+</columna>
+<columna>
+    <nombre>accesorios</nombre>
+    <tipo>text</tipo>
+    <nulo>NO</nulo>
+</columna>
+<columna>
+    <nombre>observaciones</nombre>
+    <tipo>text</tipo>
+    <nulo>NO</nulo>
+</columna>
+<restriccion>
+    <nombre>sat_pkey</nombre>
+    <consulta>PRIMARY KEY (nsat)</consulta>
+</restriccion>
+</tabla>

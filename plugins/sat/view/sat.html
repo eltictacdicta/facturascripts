@@ -6,15 +6,15 @@
             <div class="pull_right">
                <form id="f_edita_sat" name="f_edita_sat" action="{$fsc->url()}" method="post">
                       <div class="bloque">
-                      Buscar - Desde: <input class="tcal" type="text" name="fcomienzo" value="" size="10"/>
+                      Buscar - Desde: <input class="tcal" type="text" name="desde" value="" size="10"/>
                       </div>
                         <div class="bloque">
-                       Hasta: <input class="tcal" type="text" name="ffin" value="" size="10"/>
+                       Hasta: <input class="tcal" type="text" name="hasta" value="" size="10"/>
                       </div>
                       <div class="bloque">
                        Estado
                       <select name="estado">
-                          <option value="" selected>Todos</option>
+                          <option value="todos" selected>Todos</option>
                         {loop="fsc->listar_estados()"}
                         <option value="{$value['id_estado']}">{$value['nombre_estado']}</option>
                         {/loop}

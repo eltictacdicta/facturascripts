@@ -1,0 +1,155 @@
+{include="header"}
+
+<script type="text/javascript">
+   function buscar_lineas()
+   {
+      if(document.f_buscar_lineas.buscar_lineas.value == '')
+      {
+         $("#search_results").html('');
+         fs_resize_popup("popup_buscar_lineas", 40);
+      }
+      else
+      {
+         $.ajax({
+            type: 'POST',
+            url: '{$fsc->url()}',
+            dataType: 'html',
+            data: $("form[name=f_buscar_lineas]").serialize(),
+            success: function(datos) {
+               var re = /<!--(.*?)-->/g;
+               var m = re.exec( datos );
+               if( m[1] == document.f_buscar_lineas.buscar_lineas.value )
+               {
+                  $("#search_results").html(datos);
+                  fs_resize_popup("popup_buscar_lineas", 40);
+               }
+            }
+         });
+      }
+   }
+   $(document).ready(function() {
+      document.f_custom_search.query.focus();
+      $("#b_buscar_lineas").click(function(event) {
+         event.preventDefault();
+         fs_show_popup('popup_buscar_lineas', 40);
+         document.f_buscar_lineas.buscar_lineas.focus();
+      });
+      $("#f_buscar_lineas").keyup(function() {
+         buscar_lineas();
+      });
+      $("#f_buscar_lineas").submit(function(event) {
+         event.preventDefault();
+         buscar_lineas();
+      });
+   });
+</script>
+
+<!-- Main row -->
+<div class="row" id="bodyMain2">
+	<!-- right col (We are only adding the ID to make the widgets sortable)-->
+	<section class="col-lg-12">
+		<!-- Main box -->
+		 <div class="box box-primary">
+			<div class="box-header">
+				<!-- tools box -->
+				<div class="pull-right box-tools">
+				{loop="$fsc->buttons"}
+					{if condition="$value->value=='pendientes'"}
+						<a class="btn btn-primary btn-sm pull-right" id="{$value->id}" href="{$value->href}" data-toggle="tooltip" title="{$value->value}" style="margin-right: 5px;">
+							<i class="fa fa-list-ul"></i>
+						</a>
+					{elseif condition="$value->value=='lineas'"}
+						<a class="btn btn-primary btn-sm pull-right" id="{$value->id}" href="{$value->href}" data-toggle="modal" data-target="#modal_buscar_lineas" title="{$value->value}" style="margin-right: 5px;">
+							<i class="fa fa-search"></i>
+						</a>
+					{elseif condition="$value->value=='agrupar'"}
+						<a class="btn btn-primary btn-sm pull-right" id="{$value->id}" href="{$value->href}" data-toggle="tooltip" title="{$value->value}"  style="margin-right: 5px;">
+							<i class="fa fa-code-fork"></i>
+						</a>
+					{elseif condition="$value->value=='nuevo'"}
+						<a class="btn btn-primary btn-sm pull-right" id="{$value->id}" href="{$value->href}" data-toggle="tooltip" title="{$value->value}" style="margin-right: 5px;">
+							<i class="fa fa-plus"></i>
+						</a>
+					{/if}
+				{/loop}
+				</div><!-- /. tools -->
+				<i class="fa fa-list-ul"></i>
+					<h3 class="box-title">
+						{if condition="$fsc->query!=''"}
+							Resultados de "{$fsc->query}"
+						{else}
+							Albaranes de clientes
+						{/if}
+					</h3>
+			</div>
+			<div class="box-body no-padding">
+				<div class="table-responsive">
+					<!-- .table - Uses sparkline charts-->
+					<table class="table table-striped">
+						<tr>
+							<th></th>
+							<th align="left">Código + número 2</th>
+							<th align="left">Cliente</th>
+							<th align="left">Observaciones</th>
+							<th align="right">Total</th>
+							<th align="right">Fecha</th>
+						</tr>
+						{loop="$fsc->resultados"}
+						<tr>
+							<td align="center">{if condition="!$value->ptefactura"}F{/if}</td>
+							<td><a class="link" href="{$value->url()}">{$value->codigo}</a> {$value->numero2}</td>
+							<td>{$value->nombrecliente}</td>
+							<td>{$value->observaciones_resume()}</td>
+							<td align="right">{$fsc->show_precio($value->total, $value->coddivisa)}</td>
+							<td align="right"><span title="{$value->hora}">{$value->fecha}</span></td>
+						</tr>
+						{else}
+						<tr>
+							<td colspan="6" align="center">Ningún {$albaran} encontrado. Pulsa el botón <button class="btn btn-primary btn-sm" data-toggle='tooltip' data-toggle="tooltip" title="Nuevo"><i class="fa fa-plus"></i></button> para crear uno.</td>
+						</tr>
+						{/loop}
+						<tr><td colspan="6">&nbsp;</td></tr>
+						<tr>
+							<td colspan="2">
+								{if condition="$fsc->anterior_url()!=''"}
+								<a class="button" href="{$fsc->anterior_url()}">anterior</a>
+								{/if}
+							</td>
+							<td colspan="3"></td>
+							<td align="right">
+								{if condition="$fsc->siguiente_url()!=''"}
+								<a class="button" href="{$fsc->siguiente_url()}">siguiente</a>
+								{/if}
+							</td>
+						 </tr>
+					</table><!-- /.table -->
+				</div>
+			</div><!-- /.box-body-->
+		</div>
+		<!-- /.box -->
+	</section><!-- right col -->
+</div><!-- /.row (main row) -->
+
+<div class="modal fade" id="modal_buscar_lineas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Buscar en las líneas</h4>
+      </div>
+      <div class="modal-body">
+		<form id="f_buscar_lineas" name="f_buscar_lineas" action="{$fsc->url()}" method="post">
+			<div style="text-align: center;">
+				<input type="text" name="buscar_lineas" size="40" autocomplete="off"/>
+				<input class="search" type="image" src="view/img/zoom2.png" alt="buscar"/>
+			</div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+{include="footer"}
